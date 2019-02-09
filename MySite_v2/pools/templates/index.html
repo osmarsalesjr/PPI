@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Pools</strong>
+            </div>
+            {% if questions %}
+                <ul>
+                    {% for question in questions %}
+                        <li>
+                            <p><a href="{% url 'show_question' question.id %}">{{ question.question_text }}</a>
+                            / Published: {{ question.pub_date }}</p>
+                            {% if question.closed %}
+                                <p>
+                                    Status: <strong><em>Closed</em></strong>
+                                    <a role="button" class="btn btn-info btn-sm"
+                                       href="{% url 'show_results' question.id %}">Show results</a>
+                                </p>
+                            {% else %}
+                                <p>
+                                    Status: <strong><em>Open</em></strong>
+                                    <a role="button" class="btn btn-success btn-sm"
+                                         href="{% url 'vote' question.id %}">Vote</a></p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No questions found.</p>
+            {% endif %}
+        </div> <!---
+        <div class="panel panel-default">
+            {% if perfil_logado.convites_recebidos.count %}
+                <div class="panel-heading">
+                    <strong>Convites aguardando aprovação</strong>
+                </div>
+                <ul class="list-group">
+                    {% for convite in perfil_logado.convites_recebidos.all %}
+                        <li class="list-group-item">
+
+                            {{ convite.solicitante.nome }}
+                            <a href="{% url 'aceitar' convite.id %}" class="pull-right">aceitar</a>
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="panel-body">
+                    <p>Nenhum convite recebido :(</p>
+                </div>
+            {% endif %}
+            <div class="panel panel-default">
+                {% if perfil_logado.convites_recebidos.count %}
+                    <div class="panel-heading">
+                        <strong>
+                            Você tem
+                            {{ perfil_logado.convites_recebidos.count }}
+                            convite{{ perfil_logado.convites_recebidos.count|pluralize }}
+                            aguardando aprovação
+                        </strong>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="panel panel-default">
+                {% with total_de_convites=perfil_logado.convites_recebidos.count %}
+                    {% if total_de_convites %}
+                        <div class="panel-heading">
+                            <strong>
+                                Você tem
+
+                                {{ total_de_convites }} convite{{ total_de_convites|pluralize }}
+
+                                aguardando aprovação
+                            </strong>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            {% with total_de_contatos=perfil_logado.contatos.count %}
+                {% if total_de_contatos %}
+                    <div class="panel-heading">
+
+                        <strong>Você tem {{ total_de_contatos }}
+                            contato{{ total_de_contatos|pluralize }}</strong>
+
+                    </div>
+                    <ul class="list-group">
+                        {% for contato in perfil_logado.contatos.all %}
+                            <a href="{% url 'exibir' contato.id %}"
+                               class="list-group-item">{{ contato.nome }} // {{ contato.email }}</a>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="panel-body">
+                        <p>Você não possui contatos no momento :(</p>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div> -->
+    </div>
+{% endblock %}
